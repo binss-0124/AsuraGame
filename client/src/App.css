@@ -1,0 +1,129 @@
+.app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* 공통 버튼 스타일 */
+.btn-primary {
+  padding: 15px 30px;
+  font-size: 24px;
+  background: linear-gradient(45deg, #ff2e2e, #b300ff);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(255, 46, 46, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #ff4f4f, #cc00ff);
+  transform: scale(1.08) translateY(-3px);
+  box-shadow: 0 0 25px #ff2e2e;
+}
+
+.btn-secondary {
+  padding: 12px 24px;
+  font-size: 18px;
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  border: 2px solid #666;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(145deg, #4a4a4a, #3a3a3a);
+  border-color: #00d4ff;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+/* 팝업 오버레이 */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.popup-content {
+  background: linear-gradient(135deg, #222222, #111111);
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
+  border: 4px solid;
+  border-image: linear-gradient(45deg, #ff2e2e, #00d4ff) 1;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 입력 필드 */
+.input-field {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #00d4ff80;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input-field:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* 선택 필드 */
+.select-field {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 16px;
+  border: 2px solid #666;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.select-field:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}

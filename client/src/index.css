@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Orbitron', Arial, sans-serif;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  background-image: url('/main-image.png');
+  background-size: 1540px auto;
+  background-position: center 0px;
+  background-repeat: no-repeat;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Bebas Neue', sans-serif;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+input, select {
+  font-family: 'Orbitron', Arial, sans-serif;
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}

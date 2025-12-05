@@ -1,0 +1,141 @@
+.join-room-modal {
+  width: 600px;
+  max-width: 90vw;
+}
+
+.join-room-modal h2 {
+  text-align: center;
+  font-size: 32px;
+  color: #00d4ff;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+}
+
+.public-rooms-section h3,
+.private-room-section h3 {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 15px;
+  text-shadow: 0 0 8px rgba(179, 0, 255, 0.6);
+}
+
+.public-rooms-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.no-rooms {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+}
+
+.room-item {
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.room-item:last-child {
+  border-bottom: none;
+}
+
+.room-item:hover:not(.disabled) {
+  background: rgba(0, 212, 255, 0.1);
+}
+
+.room-item.selected {
+  background: rgba(0, 212, 255, 0.2);
+  border-left: 4px solid #00d4ff;
+}
+
+.room-item.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  color: #666;
+}
+
+.room-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.room-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.room-details {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.room-status {
+  padding: 5px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.room-status.waiting {
+  background: rgba(0, 255, 0, 0.2);
+  color: #0f0;
+  border: 1px solid #0f0;
+}
+
+.room-status.playing {
+  background: rgba(255, 0, 0, 0.2);
+  color: #f00;
+  border: 1px solid #f00;
+}
+
+.divider {
+  text-align: center;
+  color: #666;
+  margin: 20px 0;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: #444;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.private-room-section {
+  margin-bottom: 20px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.modal-buttons button {
+  min-width: 120px;
+  padding: 12px 24px;
+  font-size: 18px;
+}

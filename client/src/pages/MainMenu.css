@@ -1,0 +1,50 @@
+.main-menu {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  z-index: 10;
+}
+
+.game-title {
+  font-size: 64px;
+  color: #fffb02;
+  text-shadow: 0 0 20px rgba(255, 251, 2, 0.8),
+               0 0 40px rgba(255, 251, 2, 0.5);
+  margin-bottom: 20px;
+  animation: titlePulse 2s infinite;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 4px;
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(255, 251, 2, 0.8),
+                 0 0 40px rgba(255, 251, 2, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(255, 251, 2, 1),
+                 0 0 60px rgba(255, 251, 2, 0.7);
+  }
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.menu-btn {
+  min-width: 300px;
+  font-size: 28px;
+}

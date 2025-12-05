@@ -1,0 +1,119 @@
+.player-slot {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s;
+  padding: 10px;
+}
+
+.player-slot.empty {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px dashed #555;
+}
+
+.player-slot.closed {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #ff0000;
+  position: relative;
+}
+
+.player-slot.closed.clickable {
+  cursor: pointer;
+}
+
+.player-slot.closed.clickable:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  border-color: #ff3333;
+}
+
+.close-mark {
+  position: absolute;
+  font-size: 100px;
+  color: #ff0000;
+  font-weight: bold;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.player-slot.occupied {
+  background: rgba(76, 175, 80, 0.2);
+  border: 2px solid #4CAF50;
+}
+
+.player-slot.occupied.ready {
+  background: rgba(0, 212, 255, 0.2);
+  border: 2px solid #00d4ff;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+.slot-number {
+  font-size: 16px;
+  color: #aaa;
+  font-weight: bold;
+}
+
+.empty-text {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.player-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.player-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 5px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.player-status {
+  font-size: 12px;
+  color: #eee;
+}
+
+.close-slot-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(255, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.player-slot:hover .close-slot-btn {
+  opacity: 1;
+}
+
+.close-slot-btn:hover {
+  background-color: rgba(255, 0, 0, 1);
+}
