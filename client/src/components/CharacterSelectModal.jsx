@@ -151,8 +151,8 @@ function CharacterSelectModal({ onClose, onSelect }) {
         const size = box.getSize(new THREE.Vector3()).length();
         const center = box.getCenter(new THREE.Vector3());
         model.position.sub(center);
-        model.scale.set(3.0 / size, 3.0 / size, 3.0 / size);
-        model.position.y = -1.25;
+        model.scale.set(2.3 / size, 2.3 / size, 2.3 / size);
+        model.position.y = -1.95;
 
         // 애니메이션
         if (gltf.animations && gltf.animations.length) {
