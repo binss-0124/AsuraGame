@@ -295,13 +295,13 @@ function CharacterSelectModal({ onClose, onSelect }) {
         </div>
 
         {/* 우측: 3D 모델 미리보기 및 입력 */}
-        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
           {/* 3D 모델 */}
           <div style={{ width: '100%', flex: '1', background: 'linear-gradient(145deg, #1a2a3a 0%, #0a1a2a 100%)', borderRadius: '16px', border: '2px solid #00d4ff', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 40px rgba(0,212,255,0.2)' }}>
             <canvas ref={canvasRef} style={{ width: '100%', height: '100%', borderRadius: '12px' }}></canvas>
           </div>
 
-          {/* 캐릭터 이름, 닉네임 입력, 버튼 */}
+          {/* 캐릭터 이름, 닉네임 입력 */}
           <div style={{ width: '100%', marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
             <div style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '2rem', color: '#00ffff', fontWeight: 900, textShadow: '0 0 12px #00d4ff' }}>
               {selectedCharacter ? selectedCharacter.name : '캐릭터를 선택하세요'}
@@ -330,35 +330,40 @@ function CharacterSelectModal({ onClose, onSelect }) {
               onFocus={e => e.target.style.boxShadow = '0 0 20px rgba(0,212,255,0.4)'}
               onBlur={e => e.target.style.boxShadow = '0 0 12px rgba(0,212,255,0.2)'}
             />
-            <button
-              onClick={handleSelect}
-              style={{
-                padding: '14px 36px',
-                fontFamily: 'Bebas Neue, sans-serif',
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-                color: '#fff',
-                background: 'linear-gradient(45deg, #ff2e2e, #b300ff)',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                textTransform: 'uppercase',
-                letterSpacing: '1.2px',
-                boxShadow: '0 0 24px #ff2e2ecc',
-                transition: 'all 0.2s'
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 0 32px #ff2e2ecc';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 0 24px #ff2e2ecc';
-              }}
-            >
-              입장
-            </button>
           </div>
+
+          {/* 입장 버튼 - 우측 하단 */}
+          <button
+            onClick={handleSelect}
+            style={{
+              position: 'absolute',
+              right: '16px',
+              bottom: '16px',
+              padding: '14px 36px',
+              fontFamily: 'Bebas Neue, sans-serif',
+              fontSize: '1.5rem',
+              fontWeight: 'bold',
+              color: '#fff',
+              background: 'linear-gradient(45deg, #ff2e2e, #b300ff)',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              textTransform: 'uppercase',
+              letterSpacing: '1.2px',
+              boxShadow: '0 0 24px #ff2e2ecc',
+              transition: 'all 0.2s'
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 0 32px #ff2e2ecc';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 0 24px #ff2e2ecc';
+            }}
+          >
+            입장
+          </button>
         </div>
       </div>
       <style>{`
