@@ -6,8 +6,11 @@ export let WEAPON_DATA = {};
 export async function loadWeaponData() {
     try {
         const response = await fetch('./resources/data/weapon_data.json');
+        if (!response.ok) {
+            throw new Error(`Failed to fetch weapon_data.json: ${response.statusText}`);
+        }
         WEAPON_DATA = await response.json();
-        console.log('Weapon data loaded:', WEAPON_DATA);
+        console.log('Weapon data loaded successfully:', Object.keys(WEAPON_DATA).length, 'weapons');
     } catch (error) {
         console.error('Failed to load weapon data:', error);
     }
@@ -31,11 +34,16 @@ export class Weapon {
 
     LoadModel_(weaponName, position) {
         const loader = new FBXLoader();
-        loader.setPath('./resources/weapon/FBX/');
+        const modelPath = './resources/weapon/FBX/';
+        loader.setPath(modelPath);
+        
+        const fullPath = modelPath + weaponName;
+        console.log(`[Weapon] Loading: ${weaponName}`);
+        console.log(`[Weapon] Full path: ${fullPath}`);
 
         loader.load(weaponName, (fbx) => {
             const model = fbx;
-            if (/AssaultRifle|Pistol|Shotgun|SniperRifle|SubmachineGun/i.test(weaponName)) {
+            if (/AssaultRifle|Pistol|Shotgun|SniperRifle|SubmachineGun|Revolver|Bullpup/i.test(weaponName)) {
                 model.scale.setScalar(0.005);
             } else {
                 model.scale.setScalar(0.01);
@@ -51,9 +59,17 @@ export class Weapon {
 
             this.scene_.add(model);
             this.model_ = model;
-            console.log(`Weapon model ${weaponName} loaded at`, position);
-        }, undefined, (error) => {
-            console.error(`Error loading weapon model ${weaponName}:`, error);
+            console.log(`✓ [Weapon] ${weaponName} loaded successfully at`, position);
+        }, 
+        (progressEvent) => {
+            if (progressEvent.lengthComputable) {
+                const percentComplete = (progressEvent.loaded / progressEvent.total) * 100;
+                console.log(`[Weapon] Loading ${weaponName}: ${percentComplete.toFixed(1)}%`);
+            }
+        },
+        (error) => {
+            console.error(`✗ [Weapon] Error loading ${weaponName}:`, error);
+            console.error(`[Weapon] Failed path: ${fullPath}`);
         });
     }
 }
@@ -61,11 +77,13 @@ export class Weapon {
 export function getRandomWeaponName() {
     const weaponNames = Object.keys(WEAPON_DATA).filter(name => name !== 'Potion1_Filled.fbx');
     if (weaponNames.length === 0) {
-        console.warn("No weapons available to spawn");
+        console.warn("⚠ No weapons available to spawn. WEAPON_DATA is empty.", Object.keys(WEAPON_DATA));
         return null;
     }
     const randomIndex = Math.floor(Math.random() * weaponNames.length);
-    return weaponNames[randomIndex];
+    const selectedWeapon = weaponNames[randomIndex];
+    console.log(`Random weapon selected: ${selectedWeapon} from ${weaponNames.length} available weapons`);
+    return selectedWeapon;
 }
 
 export function spawnWeaponOnMap(scene, weaponName, x, y, z, uuid) {

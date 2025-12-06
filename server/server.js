@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
-const { getRandomWeaponName } = require('./weaponUtils');
+const { getRandomWeaponName, loadWeaponData } = require('./weaponUtils');
 
 const app = express();
 const server = http.createServer(app);
@@ -10,6 +10,13 @@ const io = new Server(server);
 const PORT = process.env.PORT || 3000;
 
 const rooms = {}; // { roomId: { players: [...], gameState: {...} } }
+
+// 서버 시작 시 무기 데이터 로드
+loadWeaponData().then(() => {
+  console.log('✓ Server initialized with weapon data');
+}).catch((error) => {
+  console.error('✗ Failed to load weapon data on startup:', error);
+});
 
 // Helper function to update all players in a room
 function updateRoomPlayers(roomId) {
@@ -130,7 +137,7 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('startGameRequest', () => {
+  socket.on('startGameRequest', async () => {
     if (socket.roomId && rooms[socket.roomId]) {
       const room = rooms[socket.roomId];
       const roomCreator = room.players[0];
@@ -142,16 +149,22 @@ io.on('connection', (socket) => {
           room.gameState.gameStarted = true;
 
           const spawnedWeapons = [];
+          console.log('[Game] Starting weapon spawn process...');
+          
           for (let i = 0; i < 10; i++) {
-            const weaponName = getRandomWeaponName();
+            const weaponName = await getRandomWeaponName();
             if (weaponName) {
               const uuid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
               const x = Math.random() * 80 - 40;
               const y = 1;
               const z = Math.random() * 80 - 40;
               spawnedWeapons.push({ uuid, weaponName, x, y, z });
+              console.log(`[Game] Weapon ${i+1}/10: ${weaponName} at (${x.toFixed(1)}, ${y}, ${z.toFixed(1)})`);
+            } else {
+              console.warn(`[Game] Failed to spawn weapon ${i+1}: getRandomWeaponName returned null`);
             }
           }
+          console.log(`[Game] Total weapons spawned: ${spawnedWeapons.length}/10`);
           room.gameState.spawnedWeapons = spawnedWeapons;
 
           io.to(socket.roomId).emit('startGame', { players: room.players, map: room.map, spawnedWeapons: spawnedWeapons });

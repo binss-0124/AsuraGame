@@ -203,6 +203,10 @@ function CharacterSelectModal({ onClose, onSelect }) {
   }, [selectedCharacter]);
 
   const handleSelect = () => {
+    if (!selectedCharacter) {
+      alert('캐릭터를 선택해주세요.');
+      return;
+    }
     if (!nickname.trim()) {
       alert('닉네임을 입력해주세요.');
       return;

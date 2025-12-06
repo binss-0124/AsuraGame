@@ -59,7 +59,9 @@ export class GameStage1 {
     this.CreateLocalPlayer();
 
     await loadWeaponData();
+    console.log(`Starting to spawn ${this.spawnedWeapons.length} weapons from server data`);
     for (const weaponData of this.spawnedWeapons) {
+      console.log(`Spawning weapon: ${weaponData.weaponName} at (${weaponData.x}, ${weaponData.y}, ${weaponData.z})`);
       const weapon = spawnWeaponOnMap(this.scene, weaponData.weaponName, weaponData.x, weaponData.y, weaponData.z, weaponData.uuid);
       this.spawnedWeaponObjects.push(weapon);
     }
