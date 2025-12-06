@@ -215,11 +215,11 @@ function CharacterSelectModal({ onClose, onSelect }) {
 
   return (
     <div className="popup-overlay" onClick={onClose}>
-      <div className="character-select-modal" onClick={(e) => e.stopPropagation()} style={{ display: 'flex', flexDirection: 'row', width: '1000px', height: '650px', background: 'linear-gradient(135deg, #0f1419 0%, #1a1f2a 50%, #0f1419 100%)', borderRadius: '24px', boxShadow: '0 20px 100px rgba(0,0,0,0.9)', padding: '32px', margin: 'auto', border: '2px solid #00d4ff' }}>
+      <div className="character-select-modal" onClick={(e) => e.stopPropagation()} style={{ display: 'flex', flexDirection: 'row', width: '1600px', height: '650px', background: 'linear-gradient(135deg, #0f1419 0%, #1a1f2a 50%, #0f1419 100%)', borderRadius: '24px', boxShadow: '0 20px 100px rgba(0,0,0,0.9)', padding: '32px', margin: 'auto', border: '2px solid #00d4ff' }}>
         {/* 좌측: 캐릭터 목록 */}
-        <div style={{ flex: '0 0 380px', display: 'flex', flexDirection: 'column', marginRight: '32px', background: 'rgba(0,0,0,0.3)', borderRadius: '16px', border: '1px solid #00d4ff44', padding: '24px 16px', overflowY: 'auto' }}>
+        <div style={{ flex: '0 0 700px', display: 'flex', flexDirection: 'column', marginRight: '32px', background: 'rgba(0,0,0,0.3)', borderRadius: '16px', border: '1px solid #00d4ff44', padding: '24px 16px', overflowY: 'auto', maxHeight: '570px' }}>
           <div style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '1.6rem', color: '#00ffff', fontWeight: 800, marginBottom: '20px', textShadow: '0 0 12px #00d4ff', textAlign: 'center' }}>캐릭터 선택</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridTemplateRows: 'repeat(4, 1fr)', gap: '18px' }}>
             {characters.map((char) => (
               <div
                 key={char.file}
