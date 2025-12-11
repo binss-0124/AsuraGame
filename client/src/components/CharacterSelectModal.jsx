@@ -219,10 +219,13 @@ function CharacterSelectModal({ onClose, onSelect }) {
 
   return (
     <div className="popup-overlay" onClick={onClose}>
-      <div className="character-select-modal" onClick={(e) => e.stopPropagation()} style={{ display: 'flex', flexDirection: 'row', width: '1600px', height: '650px', background: 'linear-gradient(135deg, #0f1419 0%, #1a1f2a 50%, #0f1419 100%)', borderRadius: '24px', boxShadow: '0 20px 100px rgba(0,0,0,0.9)', padding: '32px', margin: 'auto', border: '2px solid #00d4ff' }}>
+      <div className="character-select-modal" onClick={(e) => e.stopPropagation()} style={{ display: 'flex', flexDirection: 'row', width: '1600px', height: '650px', background: 'linear-gradient(135deg, #0a0a0f 0%, #1a1f3a 50%, #0f2a50 100%)', borderRadius: '0px', boxShadow: '0 0 40px rgba(0, 150, 255, 0.3), 0 0 80px rgba(100, 50, 200, 0.2)', padding: '32px', margin: 'auto', border: '4px solid #0099ff', position: 'relative', overflow: 'hidden' }}>
+        {/* 스캔라인 효과 */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'repeating-linear-gradient(0deg, rgba(0, 150, 255, 0.02) 0px, rgba(0, 150, 255, 0.02) 2px, transparent 2px, transparent 4px)', pointerEvents: 'none' }}></div>
+        
         {/* 좌측: 캐릭터 목록 */}
-        <div style={{ flex: '0 0 700px', display: 'flex', flexDirection: 'column', marginRight: '32px', background: 'rgba(0,0,0,0.3)', borderRadius: '16px', border: '1px solid #00d4ff44', padding: '24px 16px', overflowY: 'auto', maxHeight: '570px' }}>
-          <div style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '1.6rem', color: '#00ffff', fontWeight: 800, marginBottom: '20px', textShadow: '0 0 12px #00d4ff', textAlign: 'center' }}>캐릭터 선택</div>
+        <div style={{ flex: '0 0 700px', display: 'flex', flexDirection: 'column', marginRight: '32px', background: 'linear-gradient(135deg, #0f1a2a 0%, #1a2a4a 50%, #0f2a50 100%)', borderRadius: '0px', border: '3px solid #00ff88', padding: '24px 16px', overflowY: 'auto', maxHeight: '570px', position: 'relative', zIndex: 1, boxShadow: '0 0 20px rgba(0, 255, 136, 0.2) inset' }}>
+          <div style={{ fontFamily: 'Arial Black, sans-serif', fontSize: '1.8rem', color: '#00ffff', fontWeight: 900, marginBottom: '20px', textShadow: '0 0 10px rgba(0, 255, 255, 0.9), 0 0 20px rgba(0, 150, 255, 0.6)', textAlign: 'center', textTransform: 'uppercase', letterSpacing: '2px' }}>캐릭터 선택</div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gridTemplateRows: 'repeat(4, 1fr)', gap: '18px' }}>
             {characters.map((char) => (
               <div
@@ -230,25 +233,32 @@ function CharacterSelectModal({ onClose, onSelect }) {
                 onClick={() => setSelectedCharacter(char)}
                 style={{
                   cursor: 'pointer',
-                  background: selectedCharacter && selectedCharacter.file === char.file ? 'linear-gradient(135deg, #00d4ff33, #b300ff22)' : 'rgba(30,40,50,0.8)',
-                  border: selectedCharacter && selectedCharacter.file === char.file ? '2px solid #00d4ff' : '1px solid #444',
-                  borderRadius: '12px',
+                  background: selectedCharacter && selectedCharacter.file === char.file ? 'linear-gradient(145deg, rgba(0, 255, 136, 0.15), rgba(0, 150, 255, 0.1))' : 'linear-gradient(145deg, #0f1a2a 0%, #1a2a4a 50%, #0f2a50 100%)',
+                  border: selectedCharacter && selectedCharacter.file === char.file ? '3px solid #00ff88' : '3px solid #0099ff',
+                  borderRadius: '2px',
                   padding: '12px',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transition: 'all 0.2s',
-                  boxShadow: selectedCharacter && selectedCharacter.file === char.file ? '0 0 20px #00d4ff66' : 'none',
-                  position: 'relative'
+                  transition: 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                  boxShadow: selectedCharacter && selectedCharacter.file === char.file ? '0 0 30px rgba(0, 255, 136, 0.7), 0 0 50px rgba(0, 150, 255, 0.5), inset 0 0 20px rgba(0, 255, 136, 0.15)' : '0 0 15px rgba(0, 150, 255, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.8)',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
                 onMouseEnter={e => {
                   if (!selectedCharacter || selectedCharacter.file !== char.file) {
-                    e.currentTarget.style.boxShadow = '0 0 16px #b300ff66';
+                    e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 255, 136, 0.7), inset 0 0 15px rgba(0, 255, 136, 0.2)';
+                    e.currentTarget.style.transform = 'scale(1.15) translateY(-8px) skewY(-2deg)';
+                    e.currentTarget.style.borderColor = '#00ff88';
                   }
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.boxShadow = selectedCharacter && selectedCharacter.file === char.file ? '0 0 20px #00d4ff66' : 'none';
+                  if (!selectedCharacter || selectedCharacter.file !== char.file) {
+                    e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 150, 255, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.8)';
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.borderColor = '#0099ff';
+                  }
                 }}
               >
                 <img
@@ -257,19 +267,24 @@ function CharacterSelectModal({ onClose, onSelect }) {
                   style={{
                     width: '70px',
                     height: '70px',
-                    borderRadius: '8px',
+                    borderRadius: '0px',
                     marginBottom: '8px',
                     objectFit: 'contain',
-                    background: '#1a1f2a'
+                    background: '#0a0a0a',
+                    border: '2px solid rgba(0, 150, 255, 0.5)',
+                    boxShadow: '0 4px 15px rgba(0, 150, 255, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.8)',
+                    filter: 'brightness(1.1) contrast(1.2)'
                   }}
                 />
                 <div style={{
-                  fontSize: '1.1rem',
-                  color: selectedCharacter && selectedCharacter.file === char.file ? '#00ffff' : '#ccc',
-                  fontWeight: 600,
+                  fontSize: '1rem',
+                  color: selectedCharacter && selectedCharacter.file === char.file ? '#00ff88' : '#ccc',
+                  fontWeight: 900,
                   textAlign: 'center',
-                  fontFamily: 'Orbitron, sans-serif',
-                  textShadow: selectedCharacter && selectedCharacter.file === char.file ? '0 0 8px #00d4ff' : 'none'
+                  fontFamily: 'Arial Black, sans-serif',
+                  textShadow: selectedCharacter && selectedCharacter.file === char.file ? '0 0 8px rgba(0, 255, 136, 0.8), 0 0 3px rgba(0, 150, 255, 0.6)' : 'none',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
                 }}>
                   {char.name}
                 </div>
@@ -280,17 +295,17 @@ function CharacterSelectModal({ onClose, onSelect }) {
                     right: '-10px',
                     width: '26px',
                     height: '26px',
-                    background: '#00d4ff',
-                    borderRadius: '50%',
+                    background: '#00ff88',
+                    borderRadius: '0px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#fff',
+                    color: '#0f2a50',
                     fontSize: '1.4rem',
                     fontWeight: 900,
-                    boxShadow: '0 0 12px #00d4ff'
+                    boxShadow: '0 0 15px rgba(0, 255, 136, 0.9)'
                   }}>
-                    ✔
+                    ✓
                   </div>
                 )}
               </div>
@@ -299,15 +314,17 @@ function CharacterSelectModal({ onClose, onSelect }) {
         </div>
 
         {/* 우측: 3D 모델 미리보기 및 입력 */}
-        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', position: 'relative' }}>
+        <div style={{ flex: '1', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', position: 'relative', zIndex: 1 }}>
           {/* 3D 모델 */}
-          <div style={{ width: '100%', flex: '1', background: 'linear-gradient(145deg, #1a2a3a 0%, #0a1a2a 100%)', borderRadius: '16px', border: '2px solid #00d4ff', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 40px rgba(0,212,255,0.2)' }}>
-            <canvas ref={canvasRef} style={{ width: '100%', height: '100%', borderRadius: '12px' }}></canvas>
+          <div style={{ width: '100%', flex: '1', background: 'linear-gradient(135deg, rgba(20, 20, 20, 0.8) 0%, rgba(30, 50, 80, 0.8) 50%, rgba(20, 20, 20, 0.8) 100%)', borderRadius: '0px', border: '3px solid #ff4400', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 30px rgba(255, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.9)', position: 'relative', overflow: 'hidden' }}>
+            {/* 캔버스 스캔라인 */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'repeating-linear-gradient(0deg, rgba(255, 0, 0, 0.02) 0px, rgba(255, 0, 0, 0.02) 1px, transparent 1px, transparent 2px)', pointerEvents: 'none', zIndex: 2 }}></div>
+            <canvas ref={canvasRef} style={{ width: '100%', height: '100%', borderRadius: '0px', filter: 'brightness(1.15) contrast(1.1)' }}></canvas>
           </div>
 
           {/* 캐릭터 이름, 닉네임 입력 */}
-          <div style={{ width: '100%', marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px' }}>
-            <div style={{ fontFamily: 'Orbitron, sans-serif', fontSize: '2rem', color: '#00ffff', fontWeight: 900, textShadow: '0 0 12px #00d4ff' }}>
+          <div style={{ width: '100%', marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', position: 'relative', zIndex: 1 }}>
+            <div style={{ fontFamily: 'Arial Black, sans-serif', fontSize: '2.2rem', color: '#00ffff', fontWeight: 900, textShadow: '0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 150, 255, 0.9), 0 0 30px rgba(0, 150, 255, 0.6)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               {selectedCharacter ? selectedCharacter.name : '캐릭터를 선택하세요'}
             </div>
             <input
@@ -319,20 +336,22 @@ function CharacterSelectModal({ onClose, onSelect }) {
               style={{
                 width: '100%',
                 maxWidth: '320px',
-                fontFamily: 'Orbitron, sans-serif',
-                fontSize: '1.2rem',
+                fontFamily: 'Arial Black, sans-serif',
+                fontSize: '1.1rem',
                 padding: '12px 16px',
-                borderRadius: '8px',
-                border: '2px solid #00d4ff',
-                background: 'rgba(10,15,30,0.95)',
+                borderRadius: '2px',
+                border: '2px solid #0099ff',
+                background: 'rgba(20, 30, 50, 0.95)',
                 color: '#00ffff',
                 outline: 'none',
                 boxSizing: 'border-box',
-                boxShadow: '0 0 12px rgba(0,212,255,0.2)',
-                transition: 'all 0.2s'
+                boxShadow: '0 0 15px rgba(0, 150, 255, 0.5)',
+                transition: 'all 0.3s',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
               }}
-              onFocus={e => e.target.style.boxShadow = '0 0 20px rgba(0,212,255,0.4)'}
-              onBlur={e => e.target.style.boxShadow = '0 0 12px rgba(0,212,255,0.2)'}
+              onFocus={e => e.target.style.boxShadow = '0 0 25px rgba(0, 150, 255, 0.8), inset 0 0 10px rgba(0, 255, 136, 0.3)'}
+              onBlur={e => e.target.style.boxShadow = '0 0 15px rgba(0, 150, 255, 0.5)'}
             />
           </div>
 
@@ -343,27 +362,30 @@ function CharacterSelectModal({ onClose, onSelect }) {
               position: 'absolute',
               right: '16px',
               bottom: '16px',
-              padding: '14px 36px',
-              fontFamily: 'Bebas Neue, sans-serif',
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-              color: '#fff',
-              background: 'linear-gradient(45deg, #ff2e2e, #b300ff)',
-              border: 'none',
-              borderRadius: '8px',
+              padding: '14px 28px',
+              fontFamily: 'Arial Black, sans-serif',
+              fontSize: '1.3rem',
+              fontWeight: 900,
+              color: '#0f2a50',
+              background: 'linear-gradient(145deg, #00ff88, #00ffff)',
+              border: '3px solid #00ff88',
+              borderRadius: '2px',
               cursor: 'pointer',
               textTransform: 'uppercase',
-              letterSpacing: '1.2px',
-              boxShadow: '0 0 24px #ff2e2ecc',
-              transition: 'all 0.2s'
+              letterSpacing: '2px',
+              boxShadow: '0 0 20px rgba(0, 255, 136, 0.8), inset 0 0 10px rgba(0, 255, 255, 0.3)',
+              transition: 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+              zIndex: 2
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.boxShadow = '0 0 32px #ff2e2ecc';
+              e.currentTarget.style.transform = 'scale(1.12) skewY(-2deg)';
+              e.currentTarget.style.boxShadow = '0 0 40px rgba(0, 255, 136, 1), 0 0 60px rgba(0, 150, 255, 0.8), inset 0 0 15px rgba(0, 255, 255, 0.4)';
+              e.currentTarget.style.background = 'linear-gradient(145deg, #00ffff, #00ff88)';
             }}
             onMouseLeave={e => {
               e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 0 24px #ff2e2ecc';
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 136, 0.8), inset 0 0 10px rgba(0, 255, 255, 0.3)';
+              e.currentTarget.style.background = 'linear-gradient(145deg, #00ff88, #00ffff)';
             }}
           >
             입장
@@ -375,13 +397,13 @@ function CharacterSelectModal({ onClose, onSelect }) {
           width: 8px;
         }
         .character-select-modal::-webkit-scrollbar-track {
-          background: rgba(0, 212, 255, 0.05);
-          border-radius: 10px;
+          background: rgba(0, 150, 255, 0.1);
+          border-radius: 0px;
         }
         .character-select-modal::-webkit-scrollbar-thumb {
-          background: linear-gradient(to bottom, #00d4ff, #b300ff);
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+          background: linear-gradient(to bottom, #00ff88, #00ffff);
+          border-radius: 0px;
+          box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
         }
       `}</style>
     </div>
