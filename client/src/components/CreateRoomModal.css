@@ -1,26 +1,85 @@
 .create-room-modal {
   width: 600px;
   max-width: 90vw;
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1f3a 50%, #0f2a50 100%);
+  border: 3px solid #0099ff;
+  border-radius: 0px;
+  box-shadow: 0 0 40px rgba(0, 150, 255, 0.3), 0 0 80px rgba(100, 50, 200, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.create-room-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 150, 255, 0.02) 0px,
+    rgba(0, 150, 255, 0.02) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
 }
 
 .create-room-modal h2 {
   text-align: center;
   font-size: 32px;
-  color: #00d4ff;
+  color: #00ffff;
   margin-bottom: 30px;
-  text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.9), 0 0 20px rgba(0, 150, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 1;
 }
 
 .form-group {
   margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
 }
 
 .form-group label {
   display: block;
-  font-size: 18px;
-  color: #fff;
+  font-size: 16px;
+  color: #00ff88;
   margin-bottom: 8px;
-  text-shadow: 0 0 8px rgba(179, 0, 255, 0.6);
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.8);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.input-field,
+.select-field {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #0099ff;
+  border-radius: 2px;
+  background: rgba(20, 30, 50, 0.95);
+  color: #00ffff;
+  outline: none;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px rgba(0, 150, 255, 0.4);
+  transition: all 0.3s;
+  font-family: Arial, sans-serif;
+}
+
+.input-field:focus,
+.select-field:focus {
+  border-color: #00ff88;
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.7), inset 0 0 10px rgba(0, 255, 136, 0.2);
+  color: #00ffff;
+}
+
+.input-field::placeholder {
+  color: rgba(0, 255, 255, 0.5);
 }
 
 .map-selection {
@@ -31,10 +90,10 @@
 }
 
 .map-thumbnail {
-  border: 3px solid transparent;
-  border-radius: 8px;
+  border: 3px solid #0099ff;
+  border-radius: 0px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: relative;
   overflow: hidden;
   width: 200px;
@@ -44,38 +103,44 @@
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 5px;
+  box-shadow: 0 0 15px rgba(0, 150, 255, 0.4);
 }
 
 .map-thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 0px;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
+  filter: brightness(1.1) contrast(1.1);
 }
 
 .map-thumbnail p {
   position: relative;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #00ffff;
   padding: 5px 10px;
-  border-radius: 3px;
+  border-radius: 0px;
   font-size: 14px;
   margin: 0;
+  font-weight: bold;
+  text-shadow: 0 0 6px rgba(0, 255, 255, 0.8);
 }
 
 .map-thumbnail.selected {
-  border-color: #d97d3d;
-  box-shadow: 0 0 15px rgba(217, 125, 61, 0.8);
+  border-color: #00ff88;
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.8), inset 0 0 15px rgba(0, 255, 136, 0.2);
+  transform: scale(1.05);
 }
 
 .map-thumbnail:hover:not(.selected) {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-color: #00ffff;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+  transform: translateY(-5px) scale(1.02);
 }
 
 .map-overlay {
@@ -85,13 +150,14 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  color: white;
+  color: #ff6600;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
   font-weight: bold;
   z-index: 3;
+  text-shadow: 0 0 6px rgba(255, 102, 0, 0.8);
 }
 
 .round-time-options {
@@ -103,24 +169,32 @@
 }
 
 .round-time-btn {
-  padding: 8px 15px;
-  font-size: 16px;
-  background-color: #555;
-  color: white;
-  border: 1px solid #777;
-  border-radius: 5px;
+  padding: 10px 18px;
+  font-size: 14px;
+  background-color: rgba(0, 150, 255, 0.2);
+  color: #00ffff;
+  border: 2px solid #0099ff;
+  border-radius: 2px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
 }
 
 .round-time-btn:hover {
-  background-color: #777;
+  background-color: rgba(0, 150, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 150, 255, 0.6);
+  border-color: #00ffff;
 }
 
 .round-time-btn.selected {
-  background-color: #d97d3d;
-  border-color: #d97d3d;
-  box-shadow: 0 0 10px rgba(217, 125, 61, 0.8);
+  background-color: linear-gradient(145deg, #00ff88, #00ffff);
+  border-color: #00ff88;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+  color: #0f2a50;
+  font-weight: 900;
 }
 
 .modal-buttons {
@@ -128,10 +202,56 @@
   gap: 15px;
   justify-content: center;
   margin-top: 30px;
+  position: relative;
+  z-index: 1;
 }
 
-.modal-buttons button {
+.btn-primary,
+.btn-secondary {
   min-width: 120px;
   padding: 12px 24px;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  font-family: Arial Black, sans-serif;
+}
+
+.btn-primary {
+  background: linear-gradient(145deg, #00ff88, #00ffff);
+  color: #0f2a50;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.8), inset 0 0 10px rgba(0, 255, 255, 0.3);
+  border: 2px solid #00ff88;
+}
+
+.btn-primary:hover {
+  transform: scale(1.08) skewY(-2deg);
+  box-shadow: 0 0 40px rgba(0, 255, 136, 1), 0 0 60px rgba(0, 150, 255, 0.8), inset 0 0 15px rgba(0, 255, 255, 0.4);
+  background: linear-gradient(145deg, #00ffff, #00ff88);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+}
+
+.btn-secondary {
+  background: rgba(0, 150, 255, 0.2);
+  color: #00ffff;
+  border: 2px solid #0099ff;
+  box-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 150, 255, 0.4);
+  border-color: #00ff88;
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
+  transform: scale(1.05);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
 }

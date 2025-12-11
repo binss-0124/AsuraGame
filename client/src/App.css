@@ -2,44 +2,91 @@
   width: 100%;
   height: 100%;
   position: relative;
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1f3a 50%, #0f2a50 100%);
+  overflow: hidden;
+}
+
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(0, 150, 255, 0.03) 0px,
+      rgba(0, 150, 255, 0.03) 2px,
+      transparent 2px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 255, 136, 0.02) 0px,
+      rgba(0, 255, 136, 0.02) 100px,
+      transparent 100px,
+      transparent 200px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* 공통 버튼 스타일 */
 .btn-primary {
   padding: 15px 30px;
   font-size: 24px;
-  background: linear-gradient(45deg, #ff2e2e, #b300ff);
-  border: none;
-  border-radius: 8px;
-  color: white;
+  background: linear-gradient(145deg, #00ff88, #00ffff);
+  border: 2px solid #00ff88;
+  border-radius: 2px;
+  color: #0f2a50;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 0 20px rgba(255, 46, 46, 0.8);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 2px;
+  font-weight: 900;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.8), inset 0 0 10px rgba(0, 255, 255, 0.3);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(45deg, #ff4f4f, #cc00ff);
-  transform: scale(1.08) translateY(-3px);
-  box-shadow: 0 0 25px #ff2e2e;
+  background: linear-gradient(145deg, #00ffff, #00ff88);
+  transform: scale(1.08) skewY(-2deg);
+  box-shadow: 0 0 40px rgba(0, 255, 136, 1), 0 0 60px rgba(0, 150, 255, 0.8), inset 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
 }
 
 .btn-secondary {
   padding: 12px 24px;
   font-size: 18px;
-  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
-  border: 2px solid #666;
-  border-radius: 8px;
-  color: white;
+  background: rgba(0, 150, 255, 0.2);
+  border: 2px solid #0099ff;
+  border-radius: 2px;
+  color: #00ffff;
   cursor: pointer;
   transition: all 0.3s;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
 }
 
 .btn-secondary:hover {
-  background: linear-gradient(145deg, #4a4a4a, #3a3a3a);
-  border-color: #00d4ff;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  background: rgba(0, 150, 255, 0.4);
+  border-color: #00ff88;
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
+  transform: scale(1.05);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
 }
 
 /* 팝업 오버레이 */
@@ -49,7 +96,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,16 +114,34 @@
 }
 
 .popup-content {
-  background: linear-gradient(135deg, #222222, #111111);
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1f3a 50%, #0f2a50 100%);
   padding: 30px;
-  border-radius: 18px;
-  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
-  border: 4px solid;
-  border-image: linear-gradient(45deg, #ff2e2e, #00d4ff) 1;
+  border-radius: 0px;
+  box-shadow: 0 0 40px rgba(0, 150, 255, 0.3), 0 0 80px rgba(100, 50, 200, 0.2);
+  border: 3px solid #0099ff;
   max-width: 90vw;
   max-height: 90vh;
   overflow-y: auto;
   animation: slideUp 0.3s;
+  position: relative;
+}
+
+.popup-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 150, 255, 0.02) 0px,
+    rgba(0, 150, 255, 0.02) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  border-radius: 0px;
 }
 
 @keyframes slideUp {
@@ -95,18 +160,24 @@
   width: 100%;
   padding: 12px 16px;
   font-size: 16px;
-  border: 2px solid #00d4ff80;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.85);
-  color: #fff;
+  border: 2px solid #0099ff;
+  border-radius: 2px;
+  background: rgba(20, 30, 50, 0.95);
+  color: #00ffff;
   outline: none;
-  transition: all 0.2s;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
+  font-family: Arial, sans-serif;
 }
 
 .input-field:focus {
-  border-color: #00d4ff;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
-  background: rgba(0, 0, 0, 0.9);
+  border-color: #00ff88;
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.7), inset 0 0 10px rgba(0, 255, 136, 0.2);
+  background: rgba(20, 30, 50, 0.98);
+}
+
+.input-field::placeholder {
+  color: rgba(0, 255, 255, 0.5);
 }
 
 /* 선택 필드 */
@@ -114,16 +185,23 @@
   width: 100%;
   padding: 10px 16px;
   font-size: 16px;
-  border: 2px solid #666;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.85);
-  color: #fff;
+  border: 2px solid #0099ff;
+  border-radius: 2px;
+  background: rgba(20, 30, 50, 0.95);
+  color: #00ffff;
   outline: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px rgba(0, 150, 255, 0.4);
+  font-family: Arial, sans-serif;
 }
 
 .select-field:focus {
-  border-color: #00d4ff;
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  border-color: #00ff88;
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.7), inset 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+.select-field option {
+  background: #0f2a50;
+  color: #00ffff;
 }
