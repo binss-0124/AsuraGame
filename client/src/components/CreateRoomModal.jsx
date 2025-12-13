@@ -50,9 +50,11 @@ function CreateRoomModal({ onClose, onCreate }) {
               <img src="/resources/Map1.png" alt="Map 1" />
               <p>도시</p>
             </div>
-            <div className={`map-thumbnail ${selectedMap === 'map2' ? 'selected' : ''}`}>
+            <div
+              className={`map-thumbnail ${selectedMap === 'map2' ? 'selected' : ''}`}
+              onClick={() => setSelectedMap('map2')}
+            >
               <img src="/resources/Map2.png" alt="Map 2" />
-              <div className="map-overlay">추후 추가 예정</div>
               <p>당구대</p>
             </div>
           </div>

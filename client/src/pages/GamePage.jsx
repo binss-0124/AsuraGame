@@ -25,9 +25,19 @@ function GamePage({ roomInfo, playerInfo, gameData, onGameEnd }) {
   const handleGameStart = async (gameData) => {
     console.log('[GamePage] handleGameStart 호출:', gameData);
 
-    // 동적으로 게임 모듈 로드
-    const { GameStage1 } = await import('../game/GameStage1');
-    console.log('[GamePage] GameStage1 모듈 로드 완료');
+    // 선택된 맵에 따라 다른 게임 모듈 로드
+    let GameStageModule;
+    if (gameData.map === 'map2') {
+      // 풀 테이블 맵
+      const { GameStage3 } = await import('../game/GameStage3');
+      GameStageModule = GameStage3;
+      console.log('[GamePage] GameStage3 (당구대) 모듈 로드 완료');
+    } else {
+      // 기본 맵 (도시)
+      const { GameStage1 } = await import('../game/GameStage1');
+      GameStageModule = GameStage1;
+      console.log('[GamePage] GameStage1 모듈 로드 완료');
+    }
 
     // 게임 시작 카운트다운
     let count = 3;
@@ -44,7 +54,7 @@ function GamePage({ roomInfo, playerInfo, gameData, onGameEnd }) {
           
           // 게임 인스턴스 생성
           try {
-            gameInstanceRef.current = new GameStage1(
+            gameInstanceRef.current = new GameStageModule(
               socket,
               gameData.players,
               gameData.map,
@@ -55,11 +65,11 @@ function GamePage({ roomInfo, playerInfo, gameData, onGameEnd }) {
                 onGameEnd();
               }
             );
-            console.log('[GamePage] GameStage1 인스턴스 생성 완료');
+            console.log(`[GamePage] ${gameData.map === 'map2' ? 'GameStage3' : 'GameStage1'} 인스턴스 생성 완료`);
             socket.emit('gameStart');
             console.log('[GamePage] gameStart 이벤트 서버로 emit');
           } catch (error) {
-            console.error('[GamePage] GameStage1 생성 중 오류:', error);
+            console.error('[GamePage] 게임 스테이지 생성 중 오류:', error);
           }
         }
       }, 1000);

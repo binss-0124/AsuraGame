@@ -6,7 +6,7 @@ import { WEAPON_DATA } from './weapon.js';
 export const player = (() => {
   class Player {
     constructor(params) {
-      this.position_ = new THREE.Vector3(0, 0, 0);
+      this.position_ = params.position ? params.position.clone() : new THREE.Vector3(0, 0, 0);
       this.velocity_ = new THREE.Vector3(0, 0, 0);
       this.speed_ = 5;
       this.params_ = params;
@@ -284,6 +284,8 @@ export const player = (() => {
         const model = gltf.scene;
         model.scale.setScalar(1);
         model.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
+        // 전달받은 position으로 메시 위치 설정
+        model.position.copy(this.position_);
         this.mesh_ = model;
         this.params_.scene.add(model);
 
