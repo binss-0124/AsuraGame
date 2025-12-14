@@ -8,6 +8,7 @@ export class Ball {
     this.mainBoundingBox_ = params.mainBoundingBox;
     this.ballNumber_ = params.ballNumber;
     this.ballColor_ = params.ballColor;
+    this.onMeshLoaded_ = params.onMeshLoaded; // 메시 로드 콜백
 
     // 테이블 경계 설정
     if (this.mainBoundingBox_) {
@@ -60,6 +61,11 @@ export class Ball {
 
       this.boundingBox_ = new THREE.Box3().setFromObject(this.mesh_);
       console.log(`Ball ${this.ballNumber_} loaded successfully at position:`, this.mesh_.position);
+      
+      // 메시 로드 완료 후 콜백 실행
+      if (this.onMeshLoaded_) {
+        this.onMeshLoaded_(this.mesh_);
+      }
     }, undefined, (error) => {
       console.error(`Error loading ball ${this.ballNumber_}ball.glb:`, error);
     });
